@@ -1,0 +1,55 @@
+on:
+  workflow_dispatch:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '0 0 * * *'
+
+jobs:
+  generate-php-client:
+    strategy:
+      matrix:
+        api: ["merchant", "channel"]
+        language: [php]
+    runs-on: ubuntu-latest
+    name: Generate ${{ matrix.language }} ${{ matrix.api }} Client
+    steps:
+
+      # Checkout your code
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Get the version
+        id: set-version
+        run: |
+          wget -O swagger.json "https://demo.channelengine.net/api/swagger/merchant/swagger.json"
+          version=$(cat swagger.json | jq '.info.version')
+          echo "The version is ${version}"
+          echo "packageVersion=${version}" >> $GITHUB_OUTPUT
+
+
+      # Generate your OpenAPI document (if you don't write it manually)
+
+      # Use the action to generate a client package
+      - name: Generate PHP Client
+        uses: openapi-generators/openapitools-generator-action@v1.3.0
+        with:
+          generator: php
+          openapi-url: "https://demo.channelengine.net/api/swagger/merchant/swagger.json"
+          #config-file: config.json TODO Configure this one
+          command-args: --artifact-version=${{ steps.set-version.outputs.packageVersion }}
+
+      # Do something with the generated client (likely publishing it somewhere)
+      - name: Publish
+        run: |
+          cd ${{ matrix.language }}-client
+          git config --global user.name 'Davide Pastore'
+          git config --global user.email 'davidepastore@users.noreply.github.com'
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "There are changes";
+            git add .
+            git commit -am "Generate ${{ steps.set-version.outputs.packageVersion }} version"
+            git tag -a "v${{ steps.set-version.outputs.packageVersion }}" -m "Version ${{ steps.set-version.outputs.packageVersion }}"
+            #git push origin main --tags
+          else
+            echo "No changes";
+          fi
