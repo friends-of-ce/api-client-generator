@@ -26,12 +26,9 @@ jobs:
           echo "The version is ${version}"
           echo "packageVersion=${version}" >> $GITHUB_OUTPUT
 
-
-      # Generate your OpenAPI document (if you don't write it manually)
-
       # Use the action to generate a client package
       - name: Generate the client
-        uses: openapi-generators/openapitools-generator-action@v1
+        uses: openapi-generators/openapitools-generator-action@v1.3.0
         with:
           generator: ${{ matrix.language }}
           openapi-url: "https://demo.channelengine.net/api/swagger/merchant/swagger.json"
