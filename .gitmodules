@@ -1,3 +1,6 @@
 [submodule "clients/merchant-api-client-php"]
 	path = clients/merchant-api-client-php
 	url = https://github.com/friends-of-ce/merchant-api-client-php.git
+[submodule "clients/channel-api-client-php"]
+	path = clients/channel-api-client-php
+	url = https://github.com/friends-of-ce/channel-api-client-php.git
