@@ -35,12 +35,12 @@ jobs:
           generator: ${{ matrix.language }}
           openapi-url: "https://demo.channelengine.net/api/swagger/merchant/swagger.json"
           config-file: clients/${{ matrix.api }}-api-client-${{ matrix.language }}/config.json
-          command-args: --artifact-version=${{ steps.set-version.outputs.packageVersion }} --output=${{ matrix.api }}-api-client-${{ matrix.language }}
+          command-args: --artifact-version=${{ steps.set-version.outputs.packageVersion }} --output=clients/${{ matrix.api }}-api-client-${{ matrix.language }}
 
       # Do something with the generated client (likely publishing it somewhere)
       - name: Publish
         run: |
-          cd ${{ matrix.api }}-api-client-${{ matrix.language }}
+          cd clients/${{ matrix.api }}-api-client-${{ matrix.language }}
           git config --global user.name 'Davide Pastore'
           git config --global user.email 'davidepastore@users.noreply.github.com'
           if [ -n "$(git status --porcelain)" ]; then
