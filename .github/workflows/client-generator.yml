@@ -31,11 +31,11 @@ jobs:
 
       # Use the action to generate a client package
       - name: Generate the client
-        uses: openapi-generators/openapitools-generator-action@v1.3.0
+        uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: ${{ matrix.language }}
           openapi-url: "https://demo.channelengine.net/api/swagger/merchant/swagger.json"
-          config-file: ${{ matrix.api }}-api-client-${{ matrix.language }}/config.json
+          config-file: clients/${{ matrix.api }}-api-client-${{ matrix.language }}/config.json
           command-args: --artifact-version=${{ steps.set-version.outputs.packageVersion }} --output=${{ matrix.api }}-api-client-${{ matrix.language }}
 
       # Do something with the generated client (likely publishing it somewhere)
