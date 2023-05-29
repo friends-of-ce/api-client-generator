@@ -30,18 +30,18 @@ jobs:
       # Generate your OpenAPI document (if you don't write it manually)
 
       # Use the action to generate a client package
-      - name: Generate ${{ matrix.language }} ${{ matrix.api }} Client
+      - name: Generate the client
         uses: openapi-generators/openapitools-generator-action@v1.3.0
         with:
           generator: ${{ matrix.language }}
           openapi-url: "https://demo.channelengine.net/api/swagger/merchant/swagger.json"
           #config-file: config.json TODO Configure this one
-          command-args: --artifact-version=${{ steps.set-version.outputs.packageVersion }}
+          command-args: --artifact-version=${{ steps.set-version.outputs.packageVersion }} --output=${{ matrix.language }}-${{ matrix.api }}-client
 
       # Do something with the generated client (likely publishing it somewhere)
       - name: Publish
         run: |
-          cd ${{ matrix.language }}-client
+          cd ${{ matrix.language }}-${{ matrix.api }}-client
           git config --global user.name 'Davide Pastore'
           git config --global user.email 'davidepastore@users.noreply.github.com'
           if [ -n "$(git status --porcelain)" ]; then
