@@ -17,6 +17,8 @@ jobs:
       # Checkout your code
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
       - name: Get the version
         id: set-version
