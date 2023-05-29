@@ -5,7 +5,7 @@ on:
     - cron:  '0 0 * * *'
 
 jobs:
-  generate-php-client:
+  generate-clients:
     strategy:
       matrix:
         api: ["merchant", "channel"]
@@ -30,10 +30,10 @@ jobs:
       # Generate your OpenAPI document (if you don't write it manually)
 
       # Use the action to generate a client package
-      - name: Generate PHP Client
+      - name: Generate ${{ matrix.language }} ${{ matrix.api }} Client
         uses: openapi-generators/openapitools-generator-action@v1.3.0
         with:
-          generator: php
+          generator: ${{ matrix.language }}
           openapi-url: "https://demo.channelengine.net/api/swagger/merchant/swagger.json"
           #config-file: config.json TODO Configure this one
           command-args: --artifact-version=${{ steps.set-version.outputs.packageVersion }}
