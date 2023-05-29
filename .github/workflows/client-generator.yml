@@ -30,7 +30,7 @@ jobs:
 
       # Use the action to generate a client package
       - name: Generate the client
-        uses: openapi-generators/openapitools-generator-action@v1.3.0
+        uses: openapi-generators/openapitools-generator-action@v1
         with:
           generator: ${{ matrix.language }}
           openapi-url: "https://demo.channelengine.net/api/swagger/merchant/swagger.json"
