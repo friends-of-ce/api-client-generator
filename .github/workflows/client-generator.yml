@@ -32,7 +32,7 @@ jobs:
         with:
           generator: ${{ matrix.language }}
           openapi-url: "https://demo.channelengine.net/api/swagger/merchant/swagger.json"
-          config-file: /clients/${{ matrix.api }}-api-client-${{ matrix.language }}/config.json
+          config-file: clients/${{ matrix.api }}-api-client-${{ matrix.language }}/config.json
           command-args: --artifact-version=${{ steps.set-version.outputs.packageVersion }} --output=${{ matrix.api }}-api-client-${{ matrix.language }}
 
       # Do something with the generated client (likely publishing it somewhere)
