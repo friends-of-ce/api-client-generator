@@ -20,6 +20,7 @@ jobs:
         with:
           submodules: recursive
           token: ${{ secrets.FRIENDS_OF_CE_SECRET }}
+          ssh-key: ${{ FRIENDS_OF_CE_SSH_KEY }}
 
       - name: Get the version
         id: set-version
