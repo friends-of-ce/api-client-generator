@@ -24,7 +24,8 @@ jobs:
         id: clean-up-folder
         run: |
           cd clients/${{ matrix.api }}-api-client-${{ matrix.language }}
-          find . ! -name 'config.json' -type f -or -type d -exec rm -rf {} +
+          shopt -s extglob 
+          rm -- !(config.json)
 
       - name: Get the version
         id: set-version
