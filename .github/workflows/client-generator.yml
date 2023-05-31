@@ -44,7 +44,8 @@ jobs:
           git config --global user.email 'davidepastore@users.noreply.github.com'
           if [ -n "$(git status --porcelain)" ]; then
             echo "There are changes";
-            git commit -a -m "Generate ${{ steps.set-version.outputs.packageVersion }} version"
+            git add .
+            git commit -m "Generate ${{ steps.set-version.outputs.packageVersion }} version"
             git tag -a "v${{ steps.set-version.outputs.packageVersion }}" -m "Version ${{ steps.set-version.outputs.packageVersion }}"
             git push origin main
             git push origin "v${{ steps.set-version.outputs.packageVersion }}"
