@@ -19,12 +19,6 @@ jobs:
         with:
           submodules: recursive
           token: ${{ secrets.FRIENDS_OF_CE_SECRET }}
-      
-      - name: Clean-up folder
-        id: clean-up-folder
-        run: |
-          cd clients/${{ matrix.api }}-api-client-${{ matrix.language }}
-          ls | grep -xv "config.json" | xargs rm
 
       - name: Get the version
         id: set-version
