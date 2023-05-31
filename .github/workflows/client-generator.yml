@@ -24,7 +24,7 @@ jobs:
         id: clean-up-folder
         run: |
           cd clients/${{ matrix.api }}-api-client-${{ matrix.language }}
-          shopt -s extglob 
+          bash -O extglob
           rm -- !(config.json)
 
       - name: Get the version
