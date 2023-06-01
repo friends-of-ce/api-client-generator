@@ -47,7 +47,7 @@ jobs:
             git add .
             git commit -m "Generate ${{ steps.set-version.outputs.packageVersion }} version"
             git tag -a "v${{ steps.set-version.outputs.packageVersion }}" -m "Version ${{ steps.set-version.outputs.packageVersion }}"
-            git push
+            git push origin HEAD:main
             git push origin "v${{ steps.set-version.outputs.packageVersion }}"
           else
             echo "No changes";
