@@ -49,6 +49,9 @@ jobs:
             git tag -a "v${{ steps.set-version.outputs.packageVersion }}" -m "Version ${{ steps.set-version.outputs.packageVersion }}"
             git push origin HEAD:main
             git push origin "v${{ steps.set-version.outputs.packageVersion }}"
+            cd ../..
+            git commit -am "Pulled down update to ${{ matrix.api }}-api-client-${{ matrix.language }}"
+            git push origin
           else
             echo "No changes";
           fi
